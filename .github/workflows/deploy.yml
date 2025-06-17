@@ -31,14 +31,17 @@ jobs:
 
       - name: Import existing infra from tfstate
         run: |
-          terraform import aws_vpc.my_vpc vpc-0a12bc34d56789ef0 || true
-          terraform import aws_subnet.public-subnet subnet-0b34de56f78acdef0 || true
-          terraform import aws_security_group.Firewall sg-0123abcd4567efgh8 || true
-          terraform import aws_instance.web i-0987fedcba6543210 || true
-          terraform import aws_key_pair.dishu dishu-key || true
-          terraform import aws_iam_role.s3_role ec2_s3_access_role || true
-          terraform import aws_iam_role_policy.s3_policy ec2_s3_policy || true
-          terraform import aws_iam_instance_profile.ec2_profile ec2_s3_access_profile || true
+          terraform import aws_vpc.myvpc vpc-0a12bc34d56789ef0
+          terraform import aws_subnet.public-subnet subnet-0b34de56f78acdef0
+          terraform import aws_subnet.private-subnet subnet-0b56ef78ab12cd340
+          terraform import aws_internet_gateway.gw igw-01234abc5678efgh9
+          terraform import aws_route_table.route rtb-01ab23cd45efgh67
+          terraform import aws_route_table_association.a rtbassoc-0123456789abcdef0
+          terraform import aws_security_group.Firewall sg-0123abcd4567efgh8
+          terraform import aws_vpc_security_group_ingress_rule.inbound-rules sgr-0aaabbbccc1234xyz
+          terraform import aws_vpc_security_group_ingress_rule.allow_http sgr-0cccbbbaaa5678xyz
+          terraform import aws_vpc_security_group_egress_rule.allow_all_outbound sgr-0ddddbbbfff999xyz
+
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
